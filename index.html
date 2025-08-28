@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Signal Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="logo">
+                <img src="https://api.dicebear.com/7.x/icons/svg?seed=tradepro&backgroundColor=3498db" alt="Logo">
+                <h1 id="logo-text">Trade Signal Pro</h1>
+            </div>
+            <div class="settings">
+                <div class="input-group">
+                    <label id="currency-label"><i class="fas fa-chart-line"></i> Инструмент</label>
+                    <select id="currency-pair">
+                        <option>GBP/USD OTC</option>
+                        <option>USD/CAD OTC</option>
+                        <option>EUR/GBP OTC</option>
+                        <option>EUR/JPY OTC</option>
+                        <option>GBP/JPY OTC</option>
+                        <option>AUD/NZD OTC</option>
+                        <option>USD/RUB OTC</option>
+                        <option>CAD/JPY OTC</option>
+                        <option>CHF/JPY OTC</option>
+                        <option>EUR/CHF OTC</option>
+                        <option>AUD/CAD OTC</option>
+                        <option>AED/CNY OTC</option>
+                        <option>EUR/USD</option>
+                        <option>BTC/USD</option>
+                        <option>XAU/USD</option>
+                        <option>ETH/USD</option>
+                        <option>USD/RUB</option>
+                        <option>USD/JPY</option>
+                        <option>GBP/USD</option>
+                        <option>USD/CHF</option>
+                        <option>AUD/USD</option>
+                        <option>USD/CAD</option>
+                        <option>NZD/USD</option>
+                        <option>EUR/GBP</option>
+                        <option>EUR/JPY</option>
+                        <option>GBP/JPY</option>
+                        <option>AUD/JPY</option>
+                        <option>CHF/JPY</option>
+                        <option>EUR/AUD</option>
+                        <option>EUR/CAD</option>
+                        <option>GBP/AUD</option>
+                        <option>GBP/CAD</option>
+                        <option>AUD/CAD</option>
+                        <option>AUD/CHF</option>
+                        <option>NZD/JPY</option>
+                        <option>NZD/CHF</option>                        
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label id="timeframe-label"><i class="fas fa-clock"></i> Время</label>
+                    <select id="timeframe">
+                        <option>5 секунд</option>
+                        <option>15 секунд</option>
+                        <option>1 минута</option>
+                        <option>3 минуты</option>
+                        <option>5 минут</option>
+                        <option>10 минут</option>
+                    </select>
+                </div>
+                <button id="generate-btn"><i class="fas fa-bolt"></i> Получить сигнал</button>
+                <a href="https://t.me/your_channel" target="_blank" class="telegram-btn">
+    <i class="fab fa-telegram"></i>Telegram
+</a>
+            </div>
+            
+            <div class="input-group">
+                <label id="language-label"><i class="fas fa-globe"></i> Язык</label>
+                <select id="language">
+                    <option value="ru">Русский</option>
+                    <option value="en">English</option>
+                    <option value="uz">O'zbek</option>
+                </select>
+            </div>
+            
+            <div class="theme-switcher">
+                <span id="theme-label"><i class="fas fa-moon"></i> Тёмная тема</span>
+                <label class="switch">
+                    <input type="checkbox" id="theme-toggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+        
+        <div class="main-content">
+           
+            
+            <div class="signal-block">
+                <div class="signal-header">
+                    <h2><i class="fas fa-bell"></i> <span id="signal-title">Торговый сигнал</span></h2>
+                    <span id="signal-time"></span>
+                </div>
+                <div id="signal-result" class="signal-result">
+    <div id="signal-result" class="signal-result">
+    <div class="signal-placeholder" id="signal-placeholder-text">
+        Нажмите "Получить сигнал" для генерации торгового сигнала
+    </div>
+</div>
+            </div>
+            
+            <div class="chart-block">
+                <div class="chart-header">
+                    <h2><i class="fas fa-chart-area"></i> <span id="chart-title">График цены</span></h2>
+                    <div class="timeframe-selector">
+                        <select id="chart-timeframe">
+                            <option>15m</option>
+                            <option>1H</option>
+                            <option>4H</option>
+                            <option>1D</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <div id="chart" class="chart"></div>
+                </div>
+            </div>
+            
+            <div class="history-block">
+                <div class="history-header">
+                    <h2><i class="fas fa-history"></i> <span id="history-title">История сигналов</span></h2>
+                    <button id="clear-history" style="background: none; border: none; color: var(--accent-red); cursor: pointer;">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+                <div id="history-content" class="history-content">
+                    <div class="history-empty">Нет сохранённых сигналов</div>
+                </div>
+            </div>
+             <div class="dashboard">
+                <div class="stat-card">
+                    <div class="stat-title"><i class="fas fa-signal"></i> <span id="success-rate-label">Процент успеха</span></div>
+                    <div class="stat-value" id="success-rate-value">87.3%</div>
+                    <div class="stat-change" id="success-rate-change"><i class="fas fa-arrow-up"></i> <span id="success-rate-diff">+2.5%</span></div>
+                    <div class="stat-trend" id="success-rate-trend">↑</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title"><i class="fas fa-chart-bar"></i> <span id="active-signals-label">Активные сигналы</span></div>
+                    <div class="stat-value" id="active-signals-value">24</div>
+                    <div class="stat-change" id="active-signals-change"><i class="fas fa-arrow-down"></i> <span id="active-signals-diff">-3</span></div>
+                    <div class="stat-trend negative" id="active-signals-trend">↓</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
